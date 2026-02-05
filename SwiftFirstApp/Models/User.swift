@@ -1,7 +1,9 @@
-//
-//  User.swift
-//  SwiftFirstApp
-//
-//  Created by Keliane Serane Moayé Kossa on 05/02/2026.
-//
+import Foundation
 
+struct User: Identifiable, Codable {
+    let id: UUID
+    var name: String
+    var email: String
+    var password: String
+    var favoriteMovieIds: [Int]
+}

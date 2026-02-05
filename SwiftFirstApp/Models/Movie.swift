@@ -1,7 +1,9 @@
-//
-//  Movie.swift
-//  SwiftFirstApp
-//
-//  Created by Keliane Serane Moayé Kossa on 05/02/2026.
-//
+import Foundation
 
+struct Movie: Identifiable, Codable {
+    let id: Int
+    let title: String
+    let overview: String
+    let posterPath: String
+    let rating: Double
+}
