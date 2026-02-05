@@ -1,0 +1,9 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad
+*.xccheckout
+*.mode1v3
+*.mode2v3
+*.perspectivev3
