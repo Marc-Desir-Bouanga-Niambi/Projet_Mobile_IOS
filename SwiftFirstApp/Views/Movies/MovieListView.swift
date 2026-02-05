@@ -9,5 +9,5 @@ struct MovieListView: View {
 }
 
 #Preview {
-    FilmsViews()
+    MovieListView()
 }
