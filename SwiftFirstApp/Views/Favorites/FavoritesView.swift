@@ -1,7 +1,13 @@
-//
-//  FavoritesView.swift
-//  SwiftFirstApp
-//
-//  Created by Keliane Serane Moayé Kossa on 05/02/2026.
-//
+import SwiftUI
 
+struct FavoritesView: View {
+    var body: some View {
+        Text("Favoris")
+            .font(.title)
+            .padding()
+    }
+}
+
+#Preview {
+    FavoritesView()
+}

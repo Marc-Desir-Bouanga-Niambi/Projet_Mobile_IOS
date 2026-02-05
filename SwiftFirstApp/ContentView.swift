@@ -9,13 +9,27 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @State private var email: String = ""
-    @State private var password = ""
-    @State private var name: String = ""
 
     var body: some View {
-        NavigationView {
-            LoginSwift(email: $email, password: $password, name: $name)
+        NavigationStack {
+            TabView {
+                MovieListView()
+                    .tabItem {
+                        Label("Films", systemImage: "film")
+                    }
+                FavoritesView()
+                    .tabItem {
+                        Label("Favoris", systemImage: "heart")
+                    }
+                                
+                ProfileView()
+                    .tabItem {
+                        Label("Profil", systemImage: "person")
+                    }
+                
+            }
+            
+            
         }
        
        

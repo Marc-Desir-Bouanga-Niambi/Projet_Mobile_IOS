@@ -1,7 +1,13 @@
-//
-//  MovieListView.swift
-//  SwiftFirstApp
-//
-//  Created by Keliane Serane Moayé Kossa on 05/02/2026.
-//
+import SwiftUI
 
+struct MovieListView: View {
+    var body: some View {
+        Text("Films")
+            .font(.title)
+            .padding()
+    }
+}
+
+#Preview {
+    FilmsViews()
+}

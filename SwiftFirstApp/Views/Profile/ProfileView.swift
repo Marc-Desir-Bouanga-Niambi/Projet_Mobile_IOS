@@ -1,7 +1,13 @@
-//
-//  ProfileView.swift
-//  SwiftFirstApp
-//
-//  Created by Keliane Serane Moayé Kossa on 05/02/2026.
-//
+import SwiftUI
 
+struct ProfileView: View {
+    var body: some View {
+        Text("Profil")
+            .font(.title)
+            .padding()
+    }
+}
+
+#Preview {
+    ProfileView()
+}
