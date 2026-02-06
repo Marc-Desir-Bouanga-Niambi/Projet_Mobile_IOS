@@ -16,8 +16,10 @@ struct MovieListView: View {
                 }
             }
             .navigationTitle("Films")
-            .task {
-                await vm.loadMovies()
+            .onAppear {
+                Task {
+                    await vm.loadMovies()
+                }
             }
         }
     }
