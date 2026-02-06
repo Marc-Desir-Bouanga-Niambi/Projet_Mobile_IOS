@@ -9,6 +9,7 @@ final class MovieListViewModel: ObservableObject {
     private let service = MovieAPIService()
     
     func loadMovies() {
+        
 //        service.fetchMovies { [weak self] result in
 //            DispatchQueue.main.async {
 //                switch result {

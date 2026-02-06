@@ -5,5 +5,5 @@ public struct User : Identifiable, Codable {
     var name : String
     var email : String
     var password : String
-    var favoriteMovies : Favorite?
+    var favoriteMovies : [Movie]
 }
