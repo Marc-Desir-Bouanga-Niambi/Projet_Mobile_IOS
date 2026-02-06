@@ -21,6 +21,7 @@ final class FavoritesViewModel: ObservableObject {
         }
 
         // Ici on récupère les films à partir des IDs stockés dans user.favoriteMovieIds
+        
         movieService.fetchMovies { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
