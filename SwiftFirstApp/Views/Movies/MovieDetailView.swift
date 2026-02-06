@@ -17,14 +17,12 @@ struct MovieDetailView: View {
                     case .empty:
                         // Placeholder pendant le téléchargement
                         Color.gray.opacity(0.3)
-                            .frame(width: 60, height: 90)
                             .cornerRadius(8)
                     case .success(let image):
                         // Image chargée avec succès
                         image
-                            .resizable()           // <- Ici, sur l'objet Image
+                            .resizable()
                             .scaledToFill()
-                            .frame(width: 60, height: 90)
                             .cornerRadius(8)
                     case .failure:
                         // Image a échoué à charger
