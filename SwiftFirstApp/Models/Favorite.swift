@@ -1,3 +1,3 @@
-public struct Favorite {
+public struct Favorite : Codable {
     let favoriteMovies : [Movie]
 }
