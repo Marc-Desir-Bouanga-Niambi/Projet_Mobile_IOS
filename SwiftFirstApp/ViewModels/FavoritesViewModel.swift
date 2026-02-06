@@ -32,7 +32,7 @@ final class FavoritesViewModel: ObservableObject {
     func addToFavorites(movie: Movie) {
         guard var user = authVM.currentUser else { return }
         
-        if !user.favoriteMovies.contains(where: { $0.Id == movie.Id }) {
+        if !user.favoriteMovies.contains(where: { $0.id == movie.id }) {
             user.favoriteMovies.append(movie)
         }
     }
@@ -41,7 +41,7 @@ final class FavoritesViewModel: ObservableObject {
     func removeFromFavorites(movie: Movie) {
         guard var user = authVM.currentUser else { return }
 
-        if let index = user.favoriteMovies.firstIndex(where: { $0.Id == movie.Id }) {
+        if let index = user.favoriteMovies.firstIndex(where: { $0.id == movie.id }) {
             user.favoriteMovies.remove(at: index)
             authVM.currentUser = user
             PersistenceService.saveUser(user)
@@ -51,6 +51,6 @@ final class FavoritesViewModel: ObservableObject {
 
     // Vérifier si un film est favori
     func isFavorite(_ movie: Movie) -> Bool {
-        return authVM.currentUser?.favoriteMovies.contains(where: { $0.Id == movie.Id }) ?? false
+        return authVM.currentUser?.favoriteMovies.contains(where: { $0.id == movie.id }) ?? false
     }
 }
