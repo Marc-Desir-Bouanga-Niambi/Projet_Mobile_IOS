@@ -4,7 +4,8 @@ import Testing
 struct SwiftFirstAppTests {
 
     @Test
-    func testRegisterUser() {
+    @MainActor
+    func testRegisterUser() async {
         // GIVEN
         PersistenceService.deleteUser()
         let authVM = AuthViewModel()
@@ -18,12 +19,12 @@ struct SwiftFirstAppTests {
 
         // THEN
         #expect(authVM.isAuthenticated == true)
-        #expect(authVM.currentUser != nil)
         #expect(authVM.currentUser?.email == "alice@test.com")
     }
 
     @Test
-    func testLoginUser() {
+    @MainActor
+    func testLoginUser() async {
         // GIVEN
         PersistenceService.deleteUser()
 
@@ -34,7 +35,6 @@ struct SwiftFirstAppTests {
             password: "abcd"
         )
 
-        // Nouvelle instance = simulation redémarrage app
         let authVM2 = AuthViewModel()
 
         // WHEN
@@ -46,7 +46,8 @@ struct SwiftFirstAppTests {
     }
 
     @Test
-    func testUpdateUser() {
+    @MainActor
+    func testUpdateUser() async {
         // GIVEN
         PersistenceService.deleteUser()
 
