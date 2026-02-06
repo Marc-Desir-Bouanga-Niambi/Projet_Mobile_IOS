@@ -4,19 +4,13 @@ import Combine
 
 final class AuthViewModel: ObservableObject {
     
-
-    
     @Published var currentUser: User?
     @Published var errorMessage: String?
     @Published var isAuthenticated: Bool = false
     
-
-    
     init() {
         loadUser()
     }
-    
-
     
     /// Création de compte
     func register(name: String, email: String, password: String) {
