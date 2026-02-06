@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-
+@MainActor
 final class AuthViewModel: ObservableObject {
     
     @Published var currentUser: User?
@@ -52,7 +52,6 @@ final class AuthViewModel: ObservableObject {
     
     /// Déconnexion
     func logout() {
-        PersistenceService.deleteUser()
         currentUser = nil
         isAuthenticated = false
         errorMessage = nil
@@ -66,5 +65,23 @@ final class AuthViewModel: ObservableObject {
             isAuthenticated = true
         }
     }
+    
+    //Update User
+    
+    func updateUser(name: String, email: String, password: String?) {
+        guard var user = currentUser else { return }
+
+        user.name = name
+        user.email = email
+        
+        if let newPassword = password, !newPassword.isEmpty {
+            user.password = newPassword
+        }
+
+
+        currentUser = user
+        PersistenceService.saveUser(user)
+    }
+
 }
 
