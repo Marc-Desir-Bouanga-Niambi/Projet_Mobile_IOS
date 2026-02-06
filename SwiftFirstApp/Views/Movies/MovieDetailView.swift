@@ -11,7 +11,7 @@ struct MovieDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-
+                
                 Text(movie.title)
                     .font(.title)
                     .bold()
