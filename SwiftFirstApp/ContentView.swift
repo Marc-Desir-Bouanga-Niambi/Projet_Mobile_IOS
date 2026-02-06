@@ -1,38 +1,38 @@
-//
-//  ContentView.swift
-//  SwiftFirstApp
-//
-//  Created by Keliane Serane Moayé Kossa on 04/02/2026.
-//
-
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-
+    
+    @StateObject private var authVM = AuthViewModel()
+    
     var body: some View {
         NavigationStack {
-            TabView {
-                MovieListView()
-                    .tabItem {
-                        Label("Films", systemImage: "film")
-                    }
-                FavoritesView()
-                    .tabItem {
-                        Label("Favoris", systemImage: "heart")
-                    }
-                                
-                ProfileView()
-                    .tabItem {
-                        Label("Profil", systemImage: "person")
-                    }
+            
+            if authVM.isAuthenticated {
+                // Utilisateur connecté
+                TabView {
+                    
+                    MovieListView()
+                        .tabItem {
+                            Label("Films", systemImage: "film")
+                        }
+                    
+                    FavoritesView()
+                        .tabItem {
+                            Label("Favoris", systemImage: "heart")
+                        }
+                    
+                    ProfileView()
+                        .tabItem {
+                            Label("Profil", systemImage: "person")
+                        }
+                }
                 
+            } else {
+                // Utilisateur NON connecté
+                LoginView()
             }
-            
-            
         }
-       
-       
+        .environmentObject(authVM)
     }
 }
 
