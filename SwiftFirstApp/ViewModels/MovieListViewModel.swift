@@ -18,5 +18,6 @@ final class MovieListViewModel: ObservableObject {
             errorMessage = "Erreur"
         }
         isLoading = false
+        print("Voici les films : \(movies)")
     }
 }

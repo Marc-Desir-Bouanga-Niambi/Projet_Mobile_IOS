@@ -15,7 +15,7 @@ struct MovieRowView: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(movie.title)
                     .font(.headline)
-                Text("Note : \(movie.rating, specifier: "%.1f")")
+                Text("Note : \(movie.vote_average, specifier: "%.1f")")
                     .font(.subheadline)
                     .foregroundColor(.orange)
             }

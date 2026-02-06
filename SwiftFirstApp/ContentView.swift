@@ -7,11 +7,11 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             
+            // Verification pour savoir si l'utilisateur est connecté
             if authVM.isAuthenticated {
-                // Utilisateur connecté
                 TabView {
-                    
                     MovieListView()
+                        .environmentObject(authVM)
                         .tabItem {
                             Label("Films", systemImage: "film")
                         }
@@ -26,7 +26,6 @@ struct ContentView: View {
                             Label("Profil", systemImage: "person")
                         }
                 }
-                
             } else {
                 // Utilisateur NON connecté
                 LoginView()

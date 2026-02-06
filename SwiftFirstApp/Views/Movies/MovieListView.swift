@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct MovieListView: View {
     @StateObject private var vm = MovieListViewModel()
@@ -7,8 +8,10 @@ struct MovieListView: View {
     var body: some View {
         let favoritesVM = FavoritesViewModel(authVM: authVM)
 
-        NavigationStack {
-            if !vm.isLoading {
+        Group {
+            if vm.isLoading {
+                ProgressView("Chargement...")
+            } else {
                 List(vm.movies) { movie in
                     NavigationLink {
                         MovieDetailView(movie: movie, favoritesVM: favoritesVM)
@@ -17,8 +20,9 @@ struct MovieListView: View {
                     }
                 }
                 .navigationTitle("Films")
-                }
             }
+        }
+        
         .task {
             await vm.loadMovies()
         }
