@@ -2,64 +2,41 @@ import SwiftUI
 
 struct MovieDetailView: View {
     let movie: Movie
-    @Binding var favoriteMovieIds: [Int] // liste des favoris de l'utilisateur connecté
+    @ObservedObject var favoritesVM: FavoritesViewModel
 
     var isFavorite: Bool {
-        favoriteMovieIds.contains(movie.id)
+        favoritesVM.isFavorite(movie)
     }
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // Image
-                Image(systemName: "film") // placeholder
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 300)
-                    .cornerRadius(12)
-                    .background(Color.gray.opacity(0.3))
+            VStack(spacing: 20) {
 
-                // Titre
                 Text(movie.title)
                     .font(.title)
                     .bold()
 
-                // Note
-                Text("Note : \(movie.rating, specifier: "%.1f")")
-                    .font(.headline)
-                    .foregroundColor(.orange)
-
-                // Description
                 Text(movie.overview)
-                    .font(.body)
 
-                // Bouton Favori
-                Button(action: {
-                    toggleFavorite()
-                }) {
+                Button {
+                    if isFavorite {
+                        favoritesVM.removeFromFavorites(movie: movie)
+                    } else {
+                        favoritesVM.addToFavorites(movie: movie)
+                    }
+                } label: {
                     HStack {
                         Image(systemName: isFavorite ? "heart.fill" : "heart")
                         Text(isFavorite ? "Retirer des favoris" : "Ajouter aux favoris")
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(isFavorite ? Color.red : Color.blue)
+                    .background(isFavorite ? .red : .blue)
                     .foregroundColor(.white)
                     .cornerRadius(12)
                 }
-
             }
             .padding()
-        }
-        .navigationTitle("Détail")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-
-    private func toggleFavorite() {
-        if isFavorite {
-            favoriteMovieIds.removeAll { $0 == movie.id }
-        } else {
-            favoriteMovieIds.append(movie.id)
         }
     }
 }

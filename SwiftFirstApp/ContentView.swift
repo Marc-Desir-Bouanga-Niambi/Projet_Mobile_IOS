@@ -16,7 +16,7 @@ struct ContentView: View {
                             Label("Films", systemImage: "film")
                         }
                     
-                    FavoritesView()
+                    FavoritesView(favoritesVM: FavoritesViewModel(authVM: authVM))
                         .tabItem {
                             Label("Favoris", systemImage: "heart")
                         }

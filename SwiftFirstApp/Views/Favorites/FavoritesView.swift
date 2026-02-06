@@ -1,13 +1,14 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    var body: some View {
-        Text("Favoris")
-            .font(.title)
-            .padding()
-    }
-}
+    @StateObject var favoritesVM: FavoritesViewModel
 
-#Preview {
-    FavoritesView()
+    var body: some View {
+        List(favoritesVM.favoriteMovies) { movie in
+            MovieRowView(movie: movie)
+        }
+        .onAppear {
+            favoritesVM.loadFavorites()
+        }
+    }
 }

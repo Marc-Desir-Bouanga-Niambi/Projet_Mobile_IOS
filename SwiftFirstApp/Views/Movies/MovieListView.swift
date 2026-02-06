@@ -2,29 +2,21 @@ import SwiftUI
 
 struct MovieListView: View {
     @StateObject private var vm = MovieListViewModel()
-    @State private var favoriteMovieIds: [Int] = [] // favoris mockés pour tester
+    @EnvironmentObject var authVM: AuthViewModel
 
     var body: some View {
+        let favoritesVM = FavoritesViewModel(authVM: authVM)
+
         NavigationStack {
             List(vm.movies) { movie in
-                NavigationLink(
-                    destination: MovieDetailView(movie: movie, favoriteMovieIds: $favoriteMovieIds)
-                ) {
+                NavigationLink {
+                    MovieDetailView(movie: movie, favoritesVM: favoritesVM)
+                } label: {
                     MovieRowView(movie: movie)
                 }
             }
             .navigationTitle("Films")
             .onAppear { vm.loadMovies() }
-            .alert(isPresented: Binding<Bool>(
-                get: { vm.errorMessage != nil },
-                set: { newValue in if !newValue { vm.errorMessage = nil } }
-            )) {
-                Alert(
-                    title: Text("Erreur"),
-                    message: Text(vm.errorMessage ?? "Une erreur est survenue."),
-                    dismissButton: .default(Text("OK"), action: { vm.errorMessage = nil })
-                )
-            }
         }
     }
 }
