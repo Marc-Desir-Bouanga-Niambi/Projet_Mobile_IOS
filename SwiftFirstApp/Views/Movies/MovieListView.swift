@@ -8,15 +8,17 @@ struct MovieListView: View {
         let favoritesVM = FavoritesViewModel(authVM: authVM)
 
         NavigationStack {
-            List(vm.movies) { movie in
-                NavigationLink {
-                    MovieDetailView(movie: movie, favoritesVM: favoritesVM)
-                } label: {
-                    MovieRowView(movie: movie)
+            if !vm.isLoading {
+                List(vm.movies) { movie in
+                    NavigationLink {
+                        MovieDetailView(movie: movie, favoritesVM: favoritesVM)
+                    } label: {
+                        MovieRowView(movie: movie)
+                    }
+                }
+                .navigationTitle("Films")
                 }
             }
-            .navigationTitle("Films")
-        }
         .task {
             await vm.loadMovies()
         }
