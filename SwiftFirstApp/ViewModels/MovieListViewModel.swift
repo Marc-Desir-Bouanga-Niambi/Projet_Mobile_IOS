@@ -14,17 +14,5 @@ final class MovieListViewModel: ObservableObject {
         } catch {
             errorMessage = "Erreur"
         }
-//        service.fetchMovies { [weak self] result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let movies):
-//                    self?.movies = movies
-//                    self?.errorMessage = nil
-//                case .failure(let error):
-//                    self?.movies = []
-//                    self?.errorMessage = error.localizedDescription
-//                }
-//            }
-//        }
     }
 }

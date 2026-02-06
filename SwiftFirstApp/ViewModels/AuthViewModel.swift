@@ -30,7 +30,7 @@ final class AuthViewModel: ObservableObject {
             name: name,
             email: email,
             password: password,
-            favoriteMovieIds: []
+            favoriteMovies: []
         )
         
         PersistenceService.saveUser(newUser)
