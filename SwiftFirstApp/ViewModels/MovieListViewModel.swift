@@ -8,6 +8,7 @@ final class MovieListViewModel: ObservableObject {
     
     private let movieService = MovieAPIService()
     
+    @MainActor
     func loadMovies() async {
         do {
             movies = try await movieService.fetchMoviesAPI()
