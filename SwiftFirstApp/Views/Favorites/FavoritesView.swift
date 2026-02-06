@@ -4,11 +4,21 @@ struct FavoritesView: View {
     @StateObject var favoritesVM: FavoritesViewModel
 
     var body: some View {
-        List(favoritesVM.favoriteMovies) { movie in
-            MovieRowView(movie: movie)
-        }
-        .onAppear {
-            favoritesVM.loadFavorites()
+        NavigationStack {
+            List(favoritesVM.favoriteMovies) { movie in
+                NavigationLink {
+                    MovieDetailView(
+                        movie: movie,
+                        favoritesVM: favoritesVM
+                    )
+                } label: {
+                    MovieRowView(movie: movie)
+                }
+            }
+            .navigationTitle("Favoris")
+            .onAppear {
+                favoritesVM.loadFavorites()
+            }
         }
     }
 }
