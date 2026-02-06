@@ -5,7 +5,7 @@ public struct MovieResponse: Decodable {
 }
 
 public struct Movie: Identifiable, Codable {
-    public let id: Int
+    public let Id: Int
     let original_language : String
     let original_title: String
     let overview: String
