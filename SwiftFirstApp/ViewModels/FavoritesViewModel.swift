@@ -2,64 +2,55 @@ import Foundation
 import Combine
 
 final class FavoritesViewModel: ObservableObject {
-    @Published var favoriteMovies: [Movie] = []   // liste des films favoris
+
+    // Liste des attributs
+    @Published var favoriteMovies: [Movie] = []
     @Published var errorMessage: String?
 
-    private let authVM: AuthViewModel             // pour accéder à l'utilisateur courant
-    private let movieService = MovieAPIService()  // pour charger les films si besoin
-
+    // Acces a l'utilisateur courant
+    private let authVM: AuthViewModel
+    
+    // Constructeur
     init(authVM: AuthViewModel) {
         self.authVM = authVM
         loadFavorites()
     }
 
-    // MARK: - Charger les favoris
+    // Fonction qui permet de charger les favoris de l'utilisateur si il est connecté
     func loadFavorites() {
         guard let user = authVM.currentUser else {
             favoriteMovies = []
             return
         }
-         // Ici on récupère les films à partir des IDs stockés dans user.favoriteMovieIds
-//        movieService.fetchMovies { [weak self] result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let allMovies):
-//                    // On filtre uniquement les films présents dans favoriteMovieIds
-//                    self?.favoriteMovies = allMovies.filter { user.favoriteMovieIds.contains($0.id) }
-//                case .failure(let error):
-//                    self?.errorMessage = error.localizedDescription
-//                }
-//            }
-//        }
+        
+        for movie in user.favoriteMovies {
+            favoriteMovies.append(movie)
+        }
     }
 
-    // MARK: - Ajouter un film aux favoris
+    // Fonction qui ajoute un film aux favoris de l'utilisateur
     func addToFavorites(movie: Movie) {
         guard var user = authVM.currentUser else { return }
-
-//        if !user.favoriteMovies.contains(movie.id) {
-//            user.favoriteMovies.append(movie.id)
-//            authVM.currentUser = user                  // mettre à jour l’utilisateur courant
-//            PersistenceService.saveUser(user)          // persistance
-//            loadFavorites()                             // mettre à jour la liste
-//        }
+        
+        if !user.favoriteMovies.contains(where: { $0.id == movie.id }) {
+            user.favoriteMovies.append(movie)
+        }
     }
 
-    // MARK: - Retirer un film des favoris
+    // Fonction qui retire un film aux favoris de l'utilisateur
     func removeFromFavorites(movie: Movie) {
         guard var user = authVM.currentUser else { return }
 
-//        if let index = user.favoriteMovies.firstIndex(of: movie.id) {
-//            user.favoriteMovies.remove(at: index)
-//            authVM.currentUser = user
-//            PersistenceService.saveUser(user)
-//            loadFavorites()
-//        }
+        if let index = user.favoriteMovies.firstIndex(where: { $0.id == movie.id }) {
+            user.favoriteMovies.remove(at: index)
+            authVM.currentUser = user
+            PersistenceService.saveUser(user)
+            loadFavorites()
+        }
     }
 
-    // MARK: - Vérifier si un film est favori
+    // Vérifier si un film est favori
     func isFavorite(_ movie: Movie) -> Bool {
-//        return authVM.currentUser?.favoriteMovies.contains(movie.id) ?? false
-        return true
+        return authVM.currentUser?.favoriteMovies.contains(where: { $0.id == movie.id }) ?? false
     }
 }
