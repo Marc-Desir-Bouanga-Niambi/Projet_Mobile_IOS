@@ -10,7 +10,7 @@ struct ContentView: View {
             // Verification pour savoir si l'utilisateur est connecté
             if authVM.isAuthenticated {
                 TabView {
-                    MovieListView()
+                    MovieListView(authVM: authVM)
                         .environmentObject(authVM)
                         .tabItem {
                             Label("Films", systemImage: "film")

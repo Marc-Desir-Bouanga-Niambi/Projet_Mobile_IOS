@@ -1,13 +1,15 @@
 import SwiftUI
-import Combine
 
 struct MovieListView: View {
     @StateObject private var vm = MovieListViewModel()
     @EnvironmentObject var authVM: AuthViewModel
+    @StateObject private var favoritesVM: FavoritesViewModel
+
+    init(authVM: AuthViewModel) {
+        _favoritesVM = StateObject(wrappedValue: FavoritesViewModel(authVM: authVM))
+    }
 
     var body: some View {
-        let favoritesVM = FavoritesViewModel(authVM: authVM)
-
         Group {
             if vm.isLoading {
                 ProgressView("Chargement...")
@@ -22,7 +24,6 @@ struct MovieListView: View {
                 .navigationTitle("Films")
             }
         }
-        
         .task {
             await vm.loadMovies()
         }
