@@ -6,10 +6,14 @@ final class MovieListViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var errorMessage: String?
     
-    private let service = MovieAPIService()
+    private let movieService = MovieAPIService()
     
-    func loadMovies() {
-        
+    func loadMovies() async {
+        do {
+            movies = try await movieService.fetchMoviesAPI()
+        } catch {
+            errorMessage = "Erreur"
+        }
 //        service.fetchMovies { [weak self] result in
 //            DispatchQueue.main.async {
 //                switch result {
